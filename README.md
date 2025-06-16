@@ -1,41 +1,40 @@
-# Revit 2022 Plugin Example
+ Revit 2022 外掛程式示例
 
-此專案提供一個在 Revit 2022 上運行的範例外掛。啟動後會於 Revit 功能區新增 `MyPlugin` 頁籤，其中包含五個下拉選單與五個按鈕。每個選項或按鈕被點擊時皆會跳出顯示 `待製作中` 的視窗。
+此專案提供一個在 Revit 2022 上運行的範例外掛。 啟動後會於 Revit 功能區新增 `MyPlugin` 頁籤，其中包含五個下拉選單與五個按鈕。 每個選項或按鈕被點擊時皆會跳出顯示 `待製作中` 的視窗。 
 
 ## 安裝步驟
 下列說明以一般使用者為對象，即使沒有程式開發經驗也能完成安裝。
 
 1. **準備工具**
-   - 請先安裝好 Revit 2022。
-   - 下載並安裝 Visual Studio 2022（建議 Community 版即可），安裝時記得勾選「.NET 桌面開發」工作負載。
+   -請先安裝好 Revit 2022。
+   - 下載並安裝 Visual Studio 2022（建議 Community 版即可），安裝時記得勾選「. NET 桌面開發」工作負載。 
 
-2. **取得外掛程式碼**
+2. **取得外掛程式碼** 
    - 從提供者取得本專案檔案，解壓縮後可看到 `RevitPlugin.sln` 與 `src` 目錄。
 
-3. **設定 Revit API 路徑**
+3. **設定 Revit API 路徑** 
    - 在 Windows「開始」選單搜尋「環境變數」，開啟「編輯系統環境變數」。
    - 按下「環境變數」按鈕，在「使用者變數」區塊點選「新增」。
-   - 變數名稱輸入 `REVIT_API_PATH`，變數值填入 Revit 2022 安裝路徑，例如 `C:\Program Files\Autodesk\Revit 2022`，再連續按下「確定」。
+ -  “REVIT_API_PATH”、“REVIT_API_PATH”、“  REVIT_API_PATH”、“C：\Program Files\Autodesk\Revit 2022”、“C：\Program Files\Revit 2022”、“Revit 2022”、“C：\Program Files”，2022
 
-4. **建置外掛**
+4. **建置外掛** 
    - 在檔案總管中雙擊 `RevitPlugin.sln` 以 Visual Studio 開啟專案。
    - 在 Visual Studio 的上方功能表選擇「建置 > 建置方案」。
-   - 完成後於 `src/RevitPlugin/bin/Debug`（或 `bin/Release`）資料夾會產生 `RevitPlugin.dll` 與 `RevitPlugin.addin`。
+ - ??????src/RevitPlugin/bin/Debug'（？  RevitPlugin.dll？???'RevitPlugin.addin''。
 
-5. **安裝到 Revit**
+5. **安裝到 Revit** 
    - 將上述兩個檔案複製到 `C:\ProgramData\Autodesk\Revit\Addins\2022` 目錄，若該資料夾不存在可自行建立。
    - 啟動 Revit 2022，於功能區即可看到 `MyPlugin` 頁籤。
 
 ## 使用教學
-- `MyPlugin` 頁籤內共有十個控制項：前五個為下拉式選單，各自包含十個選項；後五個為一般按鈕。
-- 下拉選單中的選項名稱依序為 `1_1`～`1_10`、`2_1`～`2_10`...`5_1`～`5_10`。
-- 按鈕名稱為 `Button 6` ～ `Button 10`。
-- 點擊任何選項或按鈕，皆會彈出視窗顯示「X_X 待製作中」，`X_X` 代表所觸發的項目名稱。
+-  `MyPlugin` 頁籤內共有十個控制項：前五個為下拉式選單，各自包含十個選項； 後五個為一般按鈕。 
+- 下拉選單中的選項名稱依序為 '1_1'~'1_10'、'2_1'~'2_10'...'5_1'~'5_10'。
+- '按鈕 6' ~ '按鈕 10'。
+- 點擊任何選項或按鈕，皆會彈出視窗顯示「X_X 待製作中」，'X_X' 代表所觸發的項目名稱。
 - 之後可依需求在 `Commands.cs` 中替換各選項的實際功能，並可在建立按鈕時指定圖示。
 
 ## 專案結構
 - `src/RevitPlugin/`：主要外掛程式碼與 .addin 檔案。
-- `App.cs`：實作 `IExternalApplication`，負責在啟動時建立功能區與按鈕。
+- 'App.cs'：實作 'IExternalApplication'，負責在啟動時建立功能區與按鈕。
 - `Commands.cs`：定義所有按鈕及選項對應的指令，目前皆僅顯示待製作視窗。
-- `PlaceholderWindow.xaml`：彈出視窗的 WPF 介面。
-
+- 'PlaceholderWindow.xaml'：彈出視窗的 WPF 介面。 

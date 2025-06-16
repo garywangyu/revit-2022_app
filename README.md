@@ -1,3 +1,6 @@
++35
+-2
+
 # Revit 2022 Plugin Example
 
 此專案提供一個在 Revit 2022 上運行的範例外掛。啟動後會於 Revit 功能區新增 `MyPlugin` 頁籤，其中包含五個下拉選單與五個按鈕。每個選項或按鈕被點擊時皆會跳出顯示 `待製作中` 的視窗。
@@ -32,4 +35,3 @@
 - `App.cs`：實作 `IExternalApplication`，負責在啟動時建立功能區與按鈕。
 - `Commands.cs`：定義所有按鈕及選項對應的指令，目前皆僅顯示待製作視窗。
 - `PlaceholderWindow.xaml`：彈出視窗的 WPF 介面。
-

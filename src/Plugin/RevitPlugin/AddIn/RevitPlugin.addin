@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Application">
+    <Name>RevitPlugin</Name>
+    <Assembly>$(AppData)\Autodesk\REVIT\Addins\2022\RevitPlugin.dll</Assembly>
+    <AddInId>2E62050C-9F90-4F93-B60B-1E88C84CCEC6</AddInId>
+    <FullClassName>RevitPlugin.Application</FullClassName>
+    <VendorId>CODX</VendorId>
+    <VendorDescription>Sample Plugin</VendorDescription>
+  </AddIn>
+</RevitAddIns>

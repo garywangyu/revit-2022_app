@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Application">
+    <Name>RevitPlugin</Name>
+    <Assembly>$(AssemblyPath)</Assembly>
+    <AddInId>3A296A26-6EE5-4309-AACB-17D3CA69C77B</AddInId>
+    <FullClassName>RevitPlugin.App</FullClassName>
+    <VendorId>ORG</VendorId>
+    <VendorDescription>Example Plugin</VendorDescription>
+  </AddIn>
+</RevitAddIns>

@@ -2,7 +2,9 @@
 <RevitAddIns>
   <AddIn Type="Application">
     <Name>RevitPlugin</Name>
-    <Assembly>$(AssemblyPath)</Assembly>
+    <!-- Sample addin for the simplified example. Keep the DLL next to this
+         file if you wish to load it directly. -->
+    <Assembly>RevitPlugin.dll</Assembly>
     <AddInId>3A296A26-6EE5-4309-AACB-17D3CA69C77B</AddInId>
     <FullClassName>RevitPlugin.App</FullClassName>
     <VendorId>ORG</VendorId>

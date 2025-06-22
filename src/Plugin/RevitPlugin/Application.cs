@@ -36,9 +36,11 @@ namespace RevitPlugin
                     if (i == 2)
                     {
                         var item = manager.GetItem($"2_{j}");
-                        if (!string.IsNullOrEmpty(item.ImagePath) && File.Exists(item.ImagePath))
+                        if (!string.IsNullOrEmpty(item.ImagePath))
                         {
-                            pb.LargeImage = new BitmapImage(new System.Uri(item.ImagePath));
+                            var img = ImageUtil.LoadImage(item.ImagePath);
+                            if (img != null)
+                                pb.LargeImage = img;
                         }
                     }
                 }

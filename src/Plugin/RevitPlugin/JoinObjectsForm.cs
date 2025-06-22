@@ -6,13 +6,14 @@ using DB = Autodesk.Revit.DB;
 
 namespace RevitPlugin
 {
-    // 簡易介面，用於設定建築接合順序並啟動接合
+    // 簡易介面，用於設定構件接合順序並啟動接合
     public class JoinObjectsForm : Form
     {
         private readonly UI.UIDocument _uidoc;
         private ListBox _orderList;
-        private TextBox _newItemText;
+        private ComboBox _categoryCombo;
         private ListView _resultView;
+        private System.Collections.Generic.Dictionary<string, DB.BuiltInCategory> _categoryMap;
 
         public JoinObjectsForm(UI.UIDocument uidoc)
         {
@@ -22,22 +23,33 @@ namespace RevitPlugin
 
         private void InitializeComponent()
         {
-            Text = "建築接合";
+            Text = "構件接合";
             Width = 360;
             Height = 480;
 
-            _orderList = new ListBox { Top = 10, Left = 10, Width = 200, Height = 150 };
-            _orderList.Items.AddRange(new object[] { "柱", "梁", "版", "牆" });
+            _categoryMap = new System.Collections.Generic.Dictionary<string, DB.BuiltInCategory>();
+            foreach (DB.Category cat in _uidoc.Document.Settings.Categories)
+            {
+                int id = cat.Id.IntegerValue;
+                if (Enum.IsDefined(typeof(DB.BuiltInCategory), id))
+                {
+                    var bic = (DB.BuiltInCategory)id;
+                    if (!_categoryMap.ContainsKey(cat.Name))
+                        _categoryMap.Add(cat.Name, bic);
+                }
+            }
 
-            _newItemText = new TextBox { Top = 170, Left = 10, Width = 120 };
+            _orderList = new ListBox { Top = 10, Left = 10, Width = 200, Height = 150 };
+            _orderList.Items.AddRange(new object[] { "結構柱", "結構構件", "牆", "樓板" });
+
+            _categoryCombo = new ComboBox { Top = 170, Left = 10, Width = 120, DropDownStyle = ComboBoxStyle.DropDownList };
+            _categoryCombo.Items.AddRange(_categoryMap.Keys.OrderBy(k => k).ToArray());
             var addButton = new Button { Text = "新增", Top = 170, Left = 140, Width = 60 };
             addButton.Click += (s, e) =>
             {
-                if (!string.IsNullOrWhiteSpace(_newItemText.Text))
-                {
-                    _orderList.Items.Add(_newItemText.Text.Trim());
-                    _newItemText.Clear();
-                }
+                var name = _categoryCombo.SelectedItem as string;
+                if (!string.IsNullOrEmpty(name) && !_orderList.Items.Contains(name))
+                    _orderList.Items.Add(name);
             };
 
             var upButton = new Button { Text = "上移", Top = 200, Left = 10, Width = 60 };
@@ -100,7 +112,7 @@ namespace RevitPlugin
 
             Controls.AddRange(new Control[]
             {
-                _orderList, _newItemText, addButton,
+                _orderList, _categoryCombo, addButton,
                 upButton, downButton, removeButton,
                 startButton, cancelButton, _resultView
             });
@@ -161,26 +173,16 @@ namespace RevitPlugin
 
             if (_resultView.Items.Count == 0)
             {
-                UI.TaskDialog.Show("建築接合", "全部接合完成");
+                UI.TaskDialog.Show("構件接合", "全部接合完成");
             }
             _resultView.Visible = _resultView.Items.Count > 0;
         }
 
-        private static DB.BuiltInCategory? GetCategory(string name)
+        private DB.BuiltInCategory? GetCategory(string name)
         {
-            switch (name)
-            {
-                case "柱":
-                    return DB.BuiltInCategory.OST_StructuralColumns;
-                case "梁":
-                    return DB.BuiltInCategory.OST_StructuralFraming;
-                case "牆":
-                    return DB.BuiltInCategory.OST_Walls;
-                case "板":
-                    return DB.BuiltInCategory.OST_Floors;
-                default:
-                    return null;
-            }
+            if (_categoryMap.TryGetValue(name, out var bic))
+                return bic;
+            return null;
         }
     }
 }

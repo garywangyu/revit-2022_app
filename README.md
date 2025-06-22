@@ -1,4 +1,4 @@
-Revit 2022 外掛程式示例
+ Revit 2022 外掛程式示例
 
 此專案提供一個在 Revit 2022 上運行的範例外掛。啟動後會於 Revit 功能區新增 `MyPlugin` 頁籤，其中包含五個下拉選單與五個按鈕。每個選項或按鈕被點擊時皆會跳出顯示 `待製作中` 的視窗。
 
@@ -24,7 +24,10 @@ Revit 2022 外掛程式示例
 5. **安裝到 Revit**
    - 從 `src\Plugin\RevitPlugin\bin\Debug` 取得 `RevitPlugin.dll`。
    - 從 `src\Plugin\RevitPlugin\AddIn` 取得 `RevitPlugin.addin`。
-   - 將以上兩個檔案複製到 `C:\ProgramData\Autodesk\Revit\Addins\2022` 目錄，若此資料夾不存在可自行建立。
+   - 將以上兩個檔案複製到 `C:\ProgramData\Autodesk\Revit\Addins\2022` 目錄。
+     此資料夾位於 **ProgramData**，並不在 `C:\Program Files` 底下，預設也不會
+     包含 `RevitPlugin` 子資料夾，可自行建立。
+   - 如果 `Addins\2022` 目錄不存在，也請手動建立。
    - 重新啟動 Revit 2022，於功能區即可看到 `MyPlugin` 頁籤。
 
 ## 使用教學

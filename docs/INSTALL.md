@@ -27,7 +27,20 @@
      在此可找到 `RevitPlugin.dll`。
    - `RevitPlugin.addin` 位於 `src\Plugin\RevitPlugin\AddIn` 目錄。
    - 複製以上兩個檔案到 `C:\ProgramData\Autodesk\Revit\Addins\2022`。
-    若此目錄不存在可自行建立。
+     此路徑位在 **ProgramData** 內，與 Revit 安裝資料夾 (`C:\Program Files\Autodesk`) 不同。
+     預設情況下不會有 `RevitPlugin` 子資料夾，請自行建立。
+   - 若整個 `Addins\2022` 資料夾不存在，也請手動建立。
+
+   以下以解壓路徑 `C:\RevitPlugin` 為例，可使用命令提示字元執行下列複製指令：
+   ```cmd
+   copy C:\RevitPlugin\src\Plugin\RevitPlugin\bin\Debug\RevitPlugin.dll C:\ProgramData\Autodesk\Revit\Addins\2022
+   copy C:\RevitPlugin\src\Plugin\RevitPlugin\AddIn\RevitPlugin.addin C:\ProgramData\Autodesk\Revit\Addins\2022
+   ```
+   若您已在命令提示字元中將工作目錄切換到專案根目錄，也可以使用相對路徑：
+   ```cmd
+   copy .\src\Plugin\RevitPlugin\bin\Debug\RevitPlugin.dll %ProgramData%\Autodesk\Revit\Addins\2022
+   copy .\src\Plugin\RevitPlugin\AddIn\RevitPlugin.addin %ProgramData%\Autodesk\Revit\Addins\2022
+   ```
 
 ## 檔案放置對照表
 | 檔案 | 產生位置 | 要複製到 |

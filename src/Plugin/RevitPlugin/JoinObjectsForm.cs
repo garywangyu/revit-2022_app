@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using System.Windows.Forms;
 using UI = Autodesk.Revit.UI;
@@ -24,7 +23,7 @@ namespace RevitPlugin
         private void InitializeComponent()
         {
             Text = "構件接合";
-            Width = 360;
+            Width = 380;
             Height = 260;
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
@@ -41,7 +40,7 @@ namespace RevitPlugin
                 }
             }
 
-            _orderList = new ListBox { Top = 10, Left = 10, Width = 180, Height = 200 };
+            _orderList = new ListBox { Top = 10, Left = 10, Width = 200, Height = 200 };
             _orderList.Items.AddRange(new object[] { "結構柱", "結構構件", "牆", "樓板" });
 
             _categoryCombo = new ComboBox { Top = 10, Left = 200, Width = 120, DropDownStyle = ComboBoxStyle.DropDownList };
@@ -120,34 +119,7 @@ namespace RevitPlugin
             });
         }
 
-        // 依設定順序執行接合，僅列出無法接合的元素
-        private void StartJoin(object sender, EventArgs e)
-        {
-            var order = _orderList.Items.Cast<string>().ToList();
-            string sequence = string.Join(" -> ", order);
-            var result = UI.TaskDialog.Show(
-                "確認接合順序",
-                $"接合順序：{sequence}\n是否開始接合？",
-                UI.TaskDialogCommonButtons.Yes | UI.TaskDialogCommonButtons.No);
-            if (result != UI.TaskDialogResult.Yes)
-                return;
-
-            _resultView.Items.Clear();
-            var doc = _uidoc.Document;
-            using (var t = new DB.Transaction(doc, "Join Elements"))
-            {
-                t.Start();
-                for (int i = 0; i < order.Count - 1; i++)
-                {
-                    var cat1 = GetCategory(order[i]);
-                    var cat2 = GetCategory(order[i + 1]);
-                    if (cat1 == null || cat2 == null)
-                        continue;
-
-                    var first = new DB.FilteredElementCollector(doc)
-                        .WhereElementIsNotElementType()
-                        .OfCategory(cat1.Value)
-                        .FirstOrDefault();
+@@ -149,40 +151,40 @@ namespace RevitPlugin
                     var seconds = new DB.FilteredElementCollector(doc)
                         .WhereElementIsNotElementType()
                         .OfCategory(cat2.Value)

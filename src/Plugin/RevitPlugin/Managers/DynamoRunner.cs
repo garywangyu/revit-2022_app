@@ -17,12 +17,8 @@ namespace RevitPlugin.Managers
                 return;
             }
 
-            string exe = @"C:\\Program Files\\Dynamo\\Dynamo Revit\\2\\DynamoCLI.exe";
-            if (!File.Exists(exe))
-            {
-                exe = @"C:\\Program Files\\Dynamo\\Dynamo Core\\2\\DynamoSandbox.exe";
-            }
-            if (!File.Exists(exe))
+            string exe = FindDynamoExe();
+            if (string.IsNullOrEmpty(exe))
             {
                 MessageBox.Show("找不到Dynamo執行檔案", "錯誤");
                 return;
@@ -36,6 +32,33 @@ namespace RevitPlugin.Managers
                 CreateNoWindow = true
             };
             Process.Start(start);
+        }
+
+        private static string FindDynamoExe()
+        {
+            string[] roots =
+            {
+                @"C:\\Program Files\\Dynamo\\Dynamo Revit",
+                @"C:\\Program Files\\Dynamo\\Dynamo Core"
+            };
+            foreach (var root in roots)
+            {
+                if (!Directory.Exists(root))
+                    continue;
+                var dirs = Directory.GetDirectories(root);
+                System.Array.Sort(dirs);
+                System.Array.Reverse(dirs);
+                foreach (var dir in dirs)
+                {
+                    string cli = Path.Combine(dir, "DynamoCLI.exe");
+                    if (File.Exists(cli))
+                        return cli;
+                    string sandbox = Path.Combine(dir, "DynamoSandbox.exe");
+                    if (File.Exists(sandbox))
+                        return sandbox;
+                }
+            }
+            return string.Empty;
         }
     }
 }

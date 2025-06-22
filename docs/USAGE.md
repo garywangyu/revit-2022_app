@@ -10,4 +10,4 @@
 未來可於 `src/Plugin/RevitPlugin/Commands` 目錄新增或修改對應指令實作，並可在 `Application.cs` 中調整版面配置或更新圖示。
 
 ## 執行 Dynamo 指令
-執行 `2_1`~`2_10` 選項可指定 `.dyn` 檔案路徑。讀取完成後再次執行指令時，系統會直接啟動 **Dynamo** 並載入該腳本，腳本會自動開始執行，無需透過 Dynamo 播放器。
+執行 `2_1`~`2_10` 選項可指定 `.dyn` 檔案路徑。讀取完成後再次執行指令時，系統會自動尋找安裝於 `C:\Program Files\Dynamo` 內的 `DynamoCLI.exe`（或 `DynamoSandbox.exe`）並啟動 **Dynamo** 來載入腳本，腳本會立刻開始執行，無需透過 Dynamo 播放器。

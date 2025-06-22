@@ -6,7 +6,7 @@ using DB = Autodesk.Revit.DB;
 
 namespace RevitPlugin
 {
-    // 簡易介面，用於設定物件接合順序並啟動接合
+    // 簡易介面，用於設定建築接合順序並啟動接合
     public class JoinObjectsForm : Form
     {
         private readonly UI.UIDocument _uidoc;
@@ -22,7 +22,7 @@ namespace RevitPlugin
 
         private void InitializeComponent()
         {
-            Text = "物件接合";
+            Text = "建築接合";
             Width = 360;
             Height = 480;
 
@@ -106,25 +106,76 @@ namespace RevitPlugin
             });
         }
 
-        // 示意性接合實作，僅顯示所設定的順序並列出未接合元素
+        // 依設定順序執行接合，僅列出無法接合的元素
         private void StartJoin(object sender, EventArgs e)
         {
-            // 真正的接合邏輯因情境而異，此處僅示範流程
-            string order = string.Join(" -> ", _orderList.Items.Cast<string>());
-            UI.TaskDialog.Show("接合順序", order);
+            var order = _orderList.Items.Cast<string>().ToList();
+            string sequence = string.Join(" -> ", order);
+            var result = UI.TaskDialog.Show(
+                "確認接合順序",
+                $"接合順序：{sequence}\n是否開始接合？",
+                UI.TaskDialogCommonButtons.Yes | UI.TaskDialogCommonButtons.No);
+            if (result != UI.TaskDialogResult.Yes)
+                return;
 
-            // 產生示例未接合項目，可依實際情況替換
             _resultView.Items.Clear();
-            var collector = new DB.FilteredElementCollector(_uidoc.Document)
-                .WhereElementIsNotElementType()
-                .OfClass(typeof(DB.Wall))
-                .Take(3);
-            foreach (var el in collector)
+            var doc = _uidoc.Document;
+            using (var t = new DB.Transaction(doc, "Join Elements"))
             {
-                var item = new ListViewItem(new[] { el.Name, el.Id.IntegerValue.ToString() });
-                _resultView.Items.Add(item);
+                t.Start();
+                for (int i = 0; i < order.Count - 1; i++)
+                {
+                    var cat1 = GetCategory(order[i]);
+                    var cat2 = GetCategory(order[i + 1]);
+                    if (cat1 == null || cat2 == null)
+                        continue;
+
+                    var first = new DB.FilteredElementCollector(doc)
+                        .WhereElementIsNotElementType()
+                        .OfCategory(cat1.Value)
+                        .FirstOrDefault();
+                    var seconds = new DB.FilteredElementCollector(doc)
+                        .WhereElementIsNotElementType()
+                        .OfCategory(cat2.Value)
+                        .ToList();
+
+                    if (first == null)
+                        continue;
+
+                    foreach (var s in seconds)
+                    {
+                        try
+                        {
+                            if (!DB.JoinGeometryUtils.AreElementsJoined(doc, first, s))
+                                DB.JoinGeometryUtils.JoinGeometry(doc, first, s);
+                        }
+                        catch
+                        {
+                            var item = new ListViewItem(new[] { s.Name, s.Id.IntegerValue.ToString() });
+                            _resultView.Items.Add(item);
+                        }
+                    }
+                }
+                t.Commit();
             }
-            _resultView.Visible = true;
+
+            if (_resultView.Items.Count == 0)
+            {
+                UI.TaskDialog.Show("建築接合", "全部接合完成");
+            }
+            _resultView.Visible = _resultView.Items.Count > 0;
+        }
+
+        private static DB.BuiltInCategory? GetCategory(string name)
+        {
+            return name switch
+            {
+                "柱" => DB.BuiltInCategory.OST_StructuralColumns,
+                "梁" => DB.BuiltInCategory.OST_StructuralFraming,
+                "牆" => DB.BuiltInCategory.OST_Walls,
+                "板" => DB.BuiltInCategory.OST_Floors,
+                _ => null
+            };
         }
     }
 }

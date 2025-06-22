@@ -58,6 +58,10 @@ namespace RevitPlugin
                 buttonPanel.AddItem(data);
             }
 
+            // 新增執行 Dynamo 的按鈕
+            var runData = new PushButtonData("ButtonRunDynamo", "Run Dynamo", Assembly.GetExecutingAssembly().Location, "RevitPlugin.Commands.RunDynamoCommand");
+            buttonPanel.AddItem(runData);
+
             return Result.Succeeded;
         }
 

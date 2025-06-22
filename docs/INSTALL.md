@@ -19,8 +19,9 @@
 
 4. **編譯專案**
    - 開啟 Visual Studio，選擇「開啟專案」，並瀏覽到 `RevitPlugin.csproj` 所在位置後開啟。
-   - 在 Visual Studio 上方選單點擊「建置 > 建置方案」（或直接按 **F6**）。
-     完成後在 `bin\Debug` 目錄會產生 `RevitPlugin.dll`。
+  - 在 Visual Studio 上方選單點擊「建置 > 建置方案」（或直接按 **F6**）。
+    完成後在 `bin\Debug` 目錄會產生 `RevitPlugin.dll`。此檔案並未隨專案附
+    帶，必須先透過此步驟自行編譯才能取得。
 
 5. **安裝外掛**
    - 編譯完成後，打開專案資料夾中的 `src\Plugin\RevitPlugin\bin\Debug`，

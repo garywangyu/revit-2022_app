@@ -13,8 +13,16 @@ namespace RevitPlugin.Commands
         {
             string key = "2_8";
             var item = DynamoManager.Instance.GetItem(key);
-            string msg = string.IsNullOrEmpty(item.DynamoPath) ? "尚未指定 Dynamo 檔案" : $"已指定 Dynamo: {item.DynamoPath}";
-            MessageBox.Show(msg, key);
+            if (string.IsNullOrEmpty(item.DynamoPath) || !System.IO.File.Exists(item.DynamoPath))
+            {
+                MessageBox.Show("尚未指定 Dynamo 檔案", key);
+                return Result.Succeeded;
+            }
+
+            if (!string.IsNullOrEmpty(item.Instruction))
+                MessageBox.Show(item.Instruction, "操作說明");
+
+            MessageBox.Show($"執行 Dynamo 檔案: {item.DynamoPath}", key);
             return Result.Succeeded;
         }
     }

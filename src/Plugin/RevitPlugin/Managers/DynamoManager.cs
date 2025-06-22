@@ -8,6 +8,7 @@ namespace RevitPlugin.Managers
     {
         public string DynamoPath { get; set; } = "";
         public string ImagePath { get; set; } = "";
+        public string Instruction { get; set; } = "";
     }
 
     public class DynamoManager
@@ -47,6 +48,12 @@ namespace RevitPlugin.Managers
             Save();
         }
 
+        public void SetInstruction(string key, string instruction)
+        {
+            GetItem(key).Instruction = instruction ?? string.Empty;
+            Save();
+        }
+
         public void Remove(string key)
         {
             if (_items.ContainsKey(key))
@@ -72,10 +79,12 @@ namespace RevitPlugin.Managers
                 var parts = line.Split('|');
                 if (parts.Length >= 3)
                 {
+                    string instruction = parts.Length >= 4 ? Decode(parts[3]) : string.Empty;
                     _items[parts[0]] = new DynamoItem
                     {
                         DynamoPath = parts[1],
-                        ImagePath = parts[2]
+                        ImagePath = parts[2],
+                        Instruction = instruction
                     };
                 }
             }
@@ -87,8 +96,26 @@ namespace RevitPlugin.Managers
             {
                 foreach (var kv in _items)
                 {
-                    sw.WriteLine($"{kv.Key}|{kv.Value.DynamoPath}|{kv.Value.ImagePath}");
+                    string instruction = Encode(kv.Value.Instruction);
+                    sw.WriteLine($"{kv.Key}|{kv.Value.DynamoPath}|{kv.Value.ImagePath}|{instruction}");
                 }
+            }
+        }
+
+        private static string Encode(string text)
+        {
+            return Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(text ?? string.Empty));
+        }
+
+        private static string Decode(string text)
+        {
+            try
+            {
+                return System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(text));
+            }
+            catch
+            {
+                return string.Empty;
             }
         }
     }

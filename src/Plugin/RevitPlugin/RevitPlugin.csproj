@@ -13,5 +13,7 @@
       <HintPath>$(REVIT_2022_API_PATH)/RevitAPIUI.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
 </Project>

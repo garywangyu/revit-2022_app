@@ -1,6 +1,9 @@
 using Autodesk.Revit.UI;
 using System.Reflection;
 using Autodesk.Revit.Attributes;
+using System.IO;
+using System.Windows.Media.Imaging;
+using RevitPlugin.Managers;
 
 namespace RevitPlugin
 {
@@ -16,6 +19,8 @@ namespace RevitPlugin
             }
             catch { }
 
+            DynamoManager manager = DynamoManager.Instance;
+
             for (int i = 1; i <= 5; i++)
             {
                 RibbonPanel panel = app.CreateRibbonPanel(tabName, $"Panel {i}");
@@ -27,7 +32,20 @@ namespace RevitPlugin
                     if (i == 1 && j == 1)
                         label = "建築接合";
                     var data = new PushButtonData($"PB{i}_{j}", label, Assembly.GetExecutingAssembly().Location, $"RevitPlugin.Commands.Command{i}_{j}");
-                    pulldown.AddPushButton(data);
+                    PushButton pb = pulldown.AddPushButton(data);
+                    if (i == 2)
+                    {
+                        var item = manager.GetItem($"2_{j}");
+                        if (!string.IsNullOrEmpty(item.ImagePath) && File.Exists(item.ImagePath))
+                        {
+                            pb.LargeImage = new BitmapImage(new System.Uri(item.ImagePath));
+                        }
+                    }
+                }
+                if (i == 2)
+                {
+                    var manageData = new PushButtonData("PB2_manage", "管理", Assembly.GetExecutingAssembly().Location, "RevitPlugin.Commands.Command2_Manage");
+                    pulldown.AddPushButton(manageData);
                 }
             }
 

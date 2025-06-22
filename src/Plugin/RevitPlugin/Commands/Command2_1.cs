@@ -2,6 +2,7 @@ using Autodesk.Revit.UI;
 using Autodesk.Revit.Attributes;
 using System.Windows.Forms;
 using Autodesk.Revit.DB;
+using RevitPlugin.Managers;
 
 namespace RevitPlugin.Commands
 {
@@ -10,7 +11,10 @@ namespace RevitPlugin.Commands
     {
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            MessageBox.Show("2_1 待製作中", "Command 2_1");
+            string key = "2_1";
+            var item = DynamoManager.Instance.GetItem(key);
+            string msg = string.IsNullOrEmpty(item.DynamoPath) ? "尚未指定 Dynamo 檔案" : $"已指定 Dynamo: {item.DynamoPath}";
+            MessageBox.Show(msg, key);
             return Result.Succeeded;
         }
     }

@@ -37,3 +37,11 @@
 - 'App.cs'：實作 'IExternalApplication'，負責在啟動時建立功能區與按鈕。
 - `Commands.cs`：定義所有按鈕及選項對應的指令，目前皆僅顯示待製作視窗。
 - 'PlaceholderWindow.xaml'：彈出視窗的 WPF 介面。 
+
+## 便利批次檔
+對於不熟悉指令列操作的使用者，`scripts` 目錄提供兩個批次檔：
+
+- `update.bat`：自動編譯外掛並複製更新後的檔案到 Revit `Addins` 資料夾。
+- `upload.bat`：協助將變更提交並推送到遠端 Git 倉庫。
+
+在 Windows 檔案總管中雙擊即可執行，上傳前會要求輸入提交訊息。

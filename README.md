@@ -19,10 +19,10 @@
 
 4. **建置外掛**
    - 在檔案總管中雙擊 `RevitPlugin.csproj` 以 Visual Studio 開啟專案。
-   - 在 Visual Studio 的上方功能表選擇「建置 > 建置方案」。完成後 `bin\Debug` 目錄會產生 `RevitPlugin.dll` 與 `RevitPlugin.addin`。
+  - 在 Visual Studio 的上方功能表選擇「建置 > 建置方案」。完成後 `bin\Debug\net48` 目錄會產生 `RevitPlugin.dll` 與 `RevitPlugin.addin`。
 
 5. **安裝到 Revit**
-   - 從 `src\Plugin\RevitPlugin\bin\Debug` 取得 `RevitPlugin.dll`。
+   - 從 `src\Plugin\RevitPlugin\bin\Debug\net48` 取得 `RevitPlugin.dll`。
    - 從 `src\Plugin\RevitPlugin\AddIn` 取得 `RevitPlugin.addin`。
    - **只需這兩個檔案**，請不要將整個專案資料夾複製到 Addins 位置。
    - 將 `RevitPlugin.dll` 與 `RevitPlugin.addin` 一併放入

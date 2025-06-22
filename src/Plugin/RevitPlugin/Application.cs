@@ -23,7 +23,10 @@ namespace RevitPlugin
                 PulldownButton pulldown = panel.AddItem(pulldownData) as PulldownButton;
                 for (int j = 1; j <= 10; j++)
                 {
-                    var data = new PushButtonData($"PB{i}_{j}", $"{i}_{j}", Assembly.GetExecutingAssembly().Location, $"RevitPlugin.Commands.Command{i}_{j}");
+                    string label = $"{i}_{j}";
+                    if (i == 1 && j == 1)
+                        label = "建築接合";
+                    var data = new PushButtonData($"PB{i}_{j}", label, Assembly.GetExecutingAssembly().Location, $"RevitPlugin.Commands.Command{i}_{j}");
                     pulldown.AddPushButton(data);
                 }
             }

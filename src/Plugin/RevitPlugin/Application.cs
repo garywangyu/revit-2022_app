@@ -8,7 +8,8 @@ namespace RevitPlugin
     {
         public Result OnStartup(UIControlledApplication app)
         {
-            string tabName = "MyPluginTab";
+            // 外掛頁籤顯示名稱
+            string tabName = "立立製作";
             try
             {
                 app.CreateRibbonTab(tabName);

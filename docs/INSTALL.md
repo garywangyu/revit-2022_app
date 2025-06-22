@@ -1,9 +1,29 @@
 # 安裝教學
 
-1. 下載並安裝 **Autodesk Revit 2022**。
-2. 將 `src/Plugin/RevitPlugin/RevitPlugin.csproj` 使用 Visual Studio 2019 (或以上) 開啟。
-3. 將環境變數 `REVIT_2022_API_PATH` 指向 Revit 2022 API 程式庫所在資料夾，通常為 `C:\Program Files\Autodesk\Revit 2022`。
-4. 編譯專案後會產生 `RevitPlugin.dll`。
-5. 將 `RevitPlugin.dll` 複製到 `%AppData%\Autodesk\REVIT\Addins\2022` 資料夾下。
-6. 同資料夾放置 `RevitPlugin.addin` 檔案（位於 `src/Plugin/RevitPlugin/AddIn`）。
-7. 重新啟動 Revit 2022 即可於功能區看到新頁籤 **MyPluginTab**。
+以下步驟針對沒有程式經驗的使用者撰寫，依序操作即可完成安裝。
+
+1. **準備軟體**
+   - 安裝好 Autodesk Revit 2022。
+   - 前往 [Visual Studio 官方網站](https://visualstudio.microsoft.com/) 下載並安裝 Visual Studio 2022 Community 版，安裝過程中請勾選「.NET 桌面開發」工作負載。
+
+2. **取得程式碼**
+   - 在 GitHub 頁面點選 `Code -> Download ZIP` 下載專案，並將壓縮檔解開。
+   - 解壓後的資料夾中可看到 `src/Plugin/RevitPlugin/RevitPlugin.csproj` 檔案。
+
+3. **設定 API 路徑**
+   - 於 Windows 搜尋列輸入「環境變數」，開啟「編輯系統環境變數」。
+   - 點選「環境變數」，在「使用者變數」區塊按「新增」。
+   - 「變數名稱」填入 `REVIT_2022_API_PATH`，
+     「變數值」填入 `C:\Program Files\Autodesk\Revit 2022`，再按下確定儲存。
+
+4. **編譯專案**
+   - 開啟 Visual Studio，選擇「開啟專案」，並瀏覽到 `RevitPlugin.csproj` 所在位置後開啟。
+   - 在 Visual Studio 上方選單點擊「建置 > 建置方案」（或直接按 **F6**）。
+     完成後在 `bin\Debug` 目錄會產生 `RevitPlugin.dll`。
+
+5. **安裝外掛**
+   - 將 `bin\Debug` 內的 `RevitPlugin.dll` 與 `RevitPlugin.addin` 複製到
+     `C:\ProgramData\Autodesk\Revit\Addins\2022` 目錄。若此目錄不存在可自行建立。
+
+6. **驗證安裝**
+   - 啟動 Revit 2022，應可在功能區看到 **MyPluginTab**。點擊任一按鈕出現「待製作中」對話框，即代表安裝成功。

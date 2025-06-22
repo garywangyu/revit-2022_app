@@ -3,6 +3,8 @@
     <TargetFramework>net48</TargetFramework>
     <OutputType>Library</OutputType>
     <UseWPF>true</UseWPF>
+    <!-- Target 64-bit Revit runtime -->
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="RevitAPI">
@@ -18,12 +20,5 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
   </ItemGroup>
-  <ItemGroup>
-    <Page Include="PlaceholderWindow.xaml" />
-    <Compile Include="PlaceholderWindow.xaml.cs">
-      <DependentUpon>PlaceholderWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="App.cs" />
-    <Compile Include="Commands.cs" />
-  </ItemGroup>
+  <!-- Source files and XAML are included automatically by the SDK -->
 </Project>

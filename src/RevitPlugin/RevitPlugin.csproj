@@ -5,6 +5,9 @@
     <UseWPF>true</UseWPF>
     <!-- Target 64-bit Revit runtime -->
     <PlatformTarget>x64</PlatformTarget>
+    <!-- Enable C# 8 features for nullable reference types -->
+    <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="RevitAPI">

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Windows.Forms;
 using UI = Autodesk.Revit.UI;
@@ -119,7 +120,34 @@ namespace RevitPlugin
             });
         }
 
-@@ -149,40 +151,40 @@ namespace RevitPlugin
+        // 依設定順序執行接合，僅列出無法接合的元素
+        private void StartJoin(object sender, EventArgs e)
+        {
+            var order = _orderList.Items.Cast<string>().ToList();
+            string sequence = string.Join(" -> ", order);
+            var result = UI.TaskDialog.Show(
+                "確認接合順序",
+                $"接合順序：{sequence}\n是否開始接合？",
+                UI.TaskDialogCommonButtons.Yes | UI.TaskDialogCommonButtons.No);
+            if (result != UI.TaskDialogResult.Yes)
+                return;
+
+            _resultView.Items.Clear();
+            var doc = _uidoc.Document;
+            using (var t = new DB.Transaction(doc, "Join Elements"))
+            {
+                t.Start();
+                for (int i = 0; i < order.Count - 1; i++)
+                {
+                    var cat1 = GetCategory(order[i]);
+                    var cat2 = GetCategory(order[i + 1]);
+                    if (cat1 == null || cat2 == null)
+                        continue;
+
+                    var first = new DB.FilteredElementCollector(doc)
+                        .WhereElementIsNotElementType()
+                        .OfCategory(cat1.Value)
+                        .FirstOrDefault();
                     var seconds = new DB.FilteredElementCollector(doc)
                         .WhereElementIsNotElementType()
                         .OfCategory(cat2.Value)

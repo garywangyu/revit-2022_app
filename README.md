@@ -7,7 +7,8 @@
 
 1. **準備工具**
    - 請先安裝好 Revit 2022。
-   - 下載並安裝 Visual Studio 2022（建議 Community 版即可），安裝時記得勾選「.NET 桌面開發」工作負載。
+ - 下載並安裝 Visual Studio 2022（建議 Community 版即可），安裝時記得勾選「.NET 桌面開發」工作負載。
+  - 若要使用 `scripts\update.bat` 自動建置，需額外安裝 [.NET SDK](https://aka.ms/dotnet/download) 以取得 `dotnet` 命令列工具。
 
 2. **取得外掛程式碼**
    - 下載或複製本專案程式碼，解壓縮後可看到 `src/Plugin/RevitPlugin` 目錄與 `RevitPlugin.csproj` 檔案。
@@ -50,9 +51,10 @@
 - `src/RevitPlugin/`：早期的簡化範例，所有指令集中在單一檔案並示範 WPF 視窗用法，不會由批次檔編譯，可作為參考。
 
 ## 便利批次檔
-對於不熟悉指令列操作的使用者，`scripts` 目錄提供兩個批次檔：
+對於不熟悉指令列操作的使用者，`scripts` 目錄提供三個批次檔：
 
 - `update.bat`：自動編譯外掛並複製更新後的檔案到 Revit `Addins` 資料夾。
+- `sync.bat`：將本機程式碼重置為遠端最新版本（相當於 `git pull`）。
 - `upload.bat`：協助將變更提交並推送到遠端 Git 倉庫。
 
 在 Windows 檔案總管中雙擊即可執行，上傳前會要求輸入提交訊息。

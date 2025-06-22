@@ -5,6 +5,7 @@
 1. **準備軟體**
    - 安裝好 Autodesk Revit 2022。
    - 前往 [Visual Studio 官方網站](https://visualstudio.microsoft.com/) 下載並安裝 Visual Studio 2022 Community 版，安裝過程中請勾選「.NET 桌面開發」工作負載。
+   - 另需安裝 [\.NET SDK](https://aka.ms/dotnet/download) 以便批次檔能透過 `dotnet` 指令自動建置。
 
 2. **取得程式碼**
    - 在 GitHub 頁面點選 `Code -> Download ZIP` 下載專案，並將壓縮檔解開。
@@ -58,5 +59,6 @@
 ## 批次檔快速操作
 若已安裝好相依軟體，也可使用 `scripts` 目錄下的批次檔簡化流程：
 
-1. 先執行 `update.bat`，自動編譯外掛並將檔案複製到 Addins 位置。
-2. 如需將個人修改回傳到 Git，可再執行 `upload.bat`，依指示輸入提交訊息後便會推送到遠端。
+1. 執行 `sync.bat`，將專案資料夾重置為遠端最新版本。
+2. 再執行 `update.bat`，自動編譯外掛並將檔案複製到 Addins 位置。
+3. 如需將個人修改回傳到 Git，可再執行 `upload.bat`，依指示輸入提交訊息後便會推送到遠端。

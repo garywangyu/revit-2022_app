@@ -25,7 +25,9 @@ namespace RevitPlugin
         {
             Text = "構件接合";
             Width = 360;
-            Height = 480;
+            Height = 260;
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
 
             _categoryMap = new System.Collections.Generic.Dictionary<string, DB.BuiltInCategory>();
             foreach (DB.Category cat in _uidoc.Document.Settings.Categories)
@@ -39,12 +41,12 @@ namespace RevitPlugin
                 }
             }
 
-            _orderList = new ListBox { Top = 10, Left = 10, Width = 200, Height = 150 };
+            _orderList = new ListBox { Top = 10, Left = 10, Width = 180, Height = 200 };
             _orderList.Items.AddRange(new object[] { "結構柱", "結構構件", "牆", "樓板" });
 
-            _categoryCombo = new ComboBox { Top = 170, Left = 10, Width = 120, DropDownStyle = ComboBoxStyle.DropDownList };
+            _categoryCombo = new ComboBox { Top = 10, Left = 200, Width = 120, DropDownStyle = ComboBoxStyle.DropDownList };
             _categoryCombo.Items.AddRange(_categoryMap.Keys.OrderBy(k => k).ToArray());
-            var addButton = new Button { Text = "新增", Top = 170, Left = 140, Width = 60 };
+            var addButton = new Button { Text = "新增", Top = 40, Left = 200, Width = 60 };
             addButton.Click += (s, e) =>
             {
                 var name = _categoryCombo.SelectedItem as string;
@@ -52,7 +54,7 @@ namespace RevitPlugin
                     _orderList.Items.Add(name);
             };
 
-            var upButton = new Button { Text = "上移", Top = 200, Left = 10, Width = 60 };
+            var upButton = new Button { Text = "上移", Top = 70, Left = 200, Width = 60 };
             upButton.Click += (s, e) =>
             {
                 int i = _orderList.SelectedIndex;
@@ -65,7 +67,7 @@ namespace RevitPlugin
                 }
             };
 
-            var downButton = new Button { Text = "下移", Top = 200, Left = 80, Width = 60 };
+            var downButton = new Button { Text = "下移", Top = 100, Left = 200, Width = 60 };
             downButton.Click += (s, e) =>
             {
                 int i = _orderList.SelectedIndex;
@@ -78,7 +80,7 @@ namespace RevitPlugin
                 }
             };
 
-            var removeButton = new Button { Text = "移除", Top = 200, Left = 150, Width = 60 };
+            var removeButton = new Button { Text = "刪除", Top = 130, Left = 200, Width = 60 };
             removeButton.Click += (s, e) =>
             {
                 int i = _orderList.SelectedIndex;
@@ -86,13 +88,13 @@ namespace RevitPlugin
                     _orderList.Items.RemoveAt(i);
             };
 
-            var startButton = new Button { Text = "開始接合", Top = 240, Left = 10, Width = 100 };
+            var startButton = new Button { Text = "進行接合", Top = 200, Left = 200, Width = 80 };
             startButton.Click += StartJoin;
 
-            var cancelButton = new Button { Text = "取消", Top = 240, Left = 120, Width = 60 };
+            var cancelButton = new Button { Text = "取消接合", Top = 200, Left = 290, Width = 80 };
             cancelButton.Click += (s, e) => Close();
 
-            _resultView = new ListView { Top = 280, Left = 10, Width = 320, Height = 150, Visible = false };
+            _resultView = new ListView { Visible = false };
             _resultView.View = View.Details;
             _resultView.FullRowSelect = true;
             _resultView.Columns.Add("名稱", 200);
@@ -171,11 +173,11 @@ namespace RevitPlugin
                 t.Commit();
             }
 
-            if (_resultView.Items.Count == 0)
-            {
-                UI.TaskDialog.Show("構件接合", "全部接合完成");
-            }
-            _resultView.Visible = _resultView.Items.Count > 0;
+            string message = _resultView.Items.Count == 0
+                ? "全部接合完成"
+                : $"有{_resultView.Items.Count}個元素無法接合";
+            UI.TaskDialog.Show("構件接合", message);
+            Close();
         }
 
         private DB.BuiltInCategory? GetCategory(string name)

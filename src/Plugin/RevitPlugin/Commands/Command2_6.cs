@@ -22,7 +22,7 @@ namespace RevitPlugin.Commands
             if (!string.IsNullOrEmpty(item.Instruction))
                 MessageBox.Show(item.Instruction, "操作說明");
 
-            DynamoPlayerUtil.OpenPlayer(commandData.Application);
+            DynamoRunner.RunScript(item.DynamoPath);
             return Result.Succeeded;
         }
     }

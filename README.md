@@ -24,11 +24,15 @@
 5. **安裝到 Revit**
    - 從 `src\Plugin\RevitPlugin\bin\Debug` 取得 `RevitPlugin.dll`。
    - 從 `src\Plugin\RevitPlugin\AddIn` 取得 `RevitPlugin.addin`。
-   - 將以上兩個檔案複製到 `C:\ProgramData\Autodesk\Revit\Addins\2022` 目錄。
+   - **只需這兩個檔案**，請不要將整個專案資料夾複製到 Addins 位置。
+   - 將 `RevitPlugin.dll` 與 `RevitPlugin.addin` 一併放入
+     `C:\ProgramData\Autodesk\Revit\Addins\2022`，確保兩者位於同一目錄下。
      此資料夾位於 **ProgramData**，並不在 `C:\Program Files` 底下，預設也不會
      包含 `RevitPlugin` 子資料夾，可自行建立。
    - 如果 `Addins\2022` 目錄不存在，也請手動建立。
-  - 重新啟動 Revit 2022，於功能區即可看到 `MyPluginTab` 頁籤。
+   - 重新啟動 Revit 2022，於功能區即可看到 `MyPluginTab` 頁籤。
+   - 注意：專案根目錄下另有 `src/RevitPlugin/RevitPlugin.addin`，那是舊版範例檔，
+     請勿複製或使用，以免 Revit 讀取到錯誤的路徑。
 
 ## 使用教學
 -  `MyPluginTab` 頁籤內共有十個控制項：前五個為下拉式選單，各自包含十個選項； 後五個為一般按鈕。

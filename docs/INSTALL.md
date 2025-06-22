@@ -27,10 +27,13 @@
    - 編譯完成後，打開專案資料夾中的 `src\Plugin\RevitPlugin\bin\Debug`，
      在此可找到 `RevitPlugin.dll`。
    - `RevitPlugin.addin` 位於 `src\Plugin\RevitPlugin\AddIn` 目錄。
-   - 複製以上兩個檔案到 `C:\ProgramData\Autodesk\Revit\Addins\2022`。
+   - **僅需這兩個檔案**，請勿將整個專案資料夾複製到 Addins 位置。
+   - 將上述兩檔一併複製至 `C:\ProgramData\Autodesk\Revit\Addins\2022`，
+     確保 `.addin` 與 `.dll` 位於同一資料夾中。
      此路徑位在 **ProgramData** 內，與 Revit 安裝資料夾 (`C:\Program Files\Autodesk`) 不同。
      預設情況下不會有 `RevitPlugin` 子資料夾，請自行建立。
    - 若整個 `Addins\2022` 資料夾不存在，也請手動建立。
+   - 專案根目錄下另有 `src/RevitPlugin/RevitPlugin.addin`，該檔僅供範例說明，請勿複製或使用。
 
    以下以解壓路徑 `C:\RevitPlugin` 為例，可使用命令提示字元執行下列複製指令：
    ```cmd

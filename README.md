@@ -7,7 +7,8 @@
 
 1. **準備工具**
    - 請先安裝好 Revit 2022。
-   - 下載並安裝 Visual Studio 2022（建議 Community 版即可），安裝時記得勾選「.NET 桌面開發」工作負載。
+ - 下載並安裝 Visual Studio 2022（建議 Community 版即可），安裝時記得勾選「.NET 桌面開發」工作負載。
+  - 若要使用 `scripts\update.bat` 自動建置，需額外安裝 [.NET SDK](https://aka.ms/dotnet/download) 以取得 `dotnet` 命令列工具。
 
 2. **取得外掛程式碼**
    - 下載或複製本專案程式碼，解壓縮後可看到 `src/Plugin/RevitPlugin` 目錄與 `RevitPlugin.csproj` 檔案。

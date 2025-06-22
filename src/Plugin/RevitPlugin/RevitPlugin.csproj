@@ -18,5 +18,11 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="PresentationCore" />
     <Reference Include="WindowsBase" />
+    <Reference Include="DynamoRevit">
+      <HintPath>$(DYNAMO_2022_PATH)/DynamoRevit.dll</HintPath>
+    </Reference>
+    <Reference Include="DynamoCore">
+      <HintPath>$(DYNAMO_2022_PATH)/DynamoCore.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

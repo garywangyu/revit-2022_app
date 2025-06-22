@@ -17,6 +17,7 @@
    - 在 Windows「開始」選單搜尋「環境變數」，開啟「編輯系統環境變數」。
    - 按下「環境變數」按鈕，在「使用者變數」區塊點選「新增」。
    - 變數名稱填入 `REVIT_2022_API_PATH`，變數值填入 `C:\Program Files\Autodesk\Revit 2022`，並按下「確定」。
+   - 若要使用 `Run Dynamo` 功能，另外新增 `DYNAMO_2022_PATH` 指向 Dynamo 安裝目錄，例如 `C:\Program Files\Dynamo\Dynamo Revit`。
 
 4. **建置外掛**
    - 在檔案總管中雙擊 `RevitPlugin.csproj` 以 Visual Studio 開啟專案。

@@ -11,3 +11,6 @@
 
 ## 執行 Dynamo 指令
 執行 `2_1`~`2_10` 選項可指定 `.dyn` 檔案路徑。讀取完成後再次執行指令時，系統會自動尋找安裝於 `C:\Program Files\Dynamo` 內的 `DynamoCLI.exe`（或 `DynamoSandbox.exe`）並啟動 **Dynamo** 來載入腳本，腳本會立刻開始執行，無需透過 Dynamo 播放器。
+
+## 直接載入 Dynamo 檔案
+按下 `Run Dynamo` 按鈕可手動選取 `.dyn` 檔案，外掛會透過 Dynamo API 在背景載入並執行該腳本，不會顯示 Dynamo 介面。

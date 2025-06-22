@@ -24,7 +24,7 @@ namespace RevitPlugin
         private void InitializeComponent()
         {
             Text = "構件接合";
-            Width = 360;
+            Width = 380;
             Height = 260;
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;

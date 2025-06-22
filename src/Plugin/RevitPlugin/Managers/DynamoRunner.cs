@@ -1,5 +1,7 @@
+using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace RevitPlugin.Managers
@@ -17,12 +19,8 @@ namespace RevitPlugin.Managers
                 return;
             }
 
-            string exe = @"C:\\Program Files\\Dynamo\\Dynamo Revit\\2\\DynamoCLI.exe";
-            if (!File.Exists(exe))
-            {
-                exe = @"C:\\Program Files\\Dynamo\\Dynamo Core\\2\\DynamoSandbox.exe";
-            }
-            if (!File.Exists(exe))
+            string? exe = FindDynamoExecutable();
+            if (exe == null)
             {
                 MessageBox.Show("找不到Dynamo執行檔案", "錯誤");
                 return;
@@ -35,7 +33,36 @@ namespace RevitPlugin.Managers
                 UseShellExecute = false,
                 CreateNoWindow = true
             };
-            Process.Start(start);
+            try
+            {
+                Process.Start(start);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"無法啟動 Dynamo: {ex.Message}", "錯誤");
+            }
+        }
+
+        private static string? FindDynamoExecutable()
+        {
+            string programFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+            var searchRoots = new[]
+            {
+                Path.Combine(programFiles, "Dynamo", "Dynamo Revit"),
+                Path.Combine(programFiles, "Dynamo", "Dynamo Core")
+            };
+            foreach (var root in searchRoots)
+            {
+                if (!Directory.Exists(root))
+                    continue;
+                var cli = Directory.EnumerateFiles(root, "DynamoCLI.exe", SearchOption.AllDirectories).FirstOrDefault();
+                if (cli != null)
+                    return cli;
+                var sandbox = Directory.EnumerateFiles(root, "DynamoSandbox.exe", SearchOption.AllDirectories).FirstOrDefault();
+                if (sandbox != null)
+                    return sandbox;
+            }
+            return null;
         }
     }
 }

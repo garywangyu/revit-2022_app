@@ -1,20 +1,20 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
-using Autodesk.Revit.UI;
-using Autodesk.Revit.DB;
+using UI = Autodesk.Revit.UI;
+using DB = Autodesk.Revit.DB;
 
 namespace RevitPlugin
 {
     // 簡易介面，用於設定物件接合順序並啟動接合
     public class JoinObjectsForm : Form
     {
-        private readonly UIDocument _uidoc;
+        private readonly UI.UIDocument _uidoc;
         private ListBox _orderList;
         private TextBox _newItemText;
         private ListView _resultView;
 
-        public JoinObjectsForm(UIDocument uidoc)
+        public JoinObjectsForm(UI.UIDocument uidoc)
         {
             _uidoc = uidoc;
             InitializeComponent();
@@ -91,7 +91,7 @@ namespace RevitPlugin
                 {
                     if (int.TryParse(_resultView.SelectedItems[0].SubItems[1].Text, out int id))
                     {
-                        var el = _uidoc.Document.GetElement(new ElementId(id));
+                        var el = _uidoc.Document.GetElement(new DB.ElementId(id));
                         if (el != null)
                             _uidoc.ShowElements(el.Id);
                     }
@@ -111,13 +111,13 @@ namespace RevitPlugin
         {
             // 真正的接合邏輯因情境而異，此處僅示範流程
             string order = string.Join(" -> ", _orderList.Items.Cast<string>());
-            TaskDialog.Show("接合順序", order);
+            UI.TaskDialog.Show("接合順序", order);
 
             // 產生示例未接合項目，可依實際情況替換
             _resultView.Items.Clear();
-            var collector = new FilteredElementCollector(_uidoc.Document)
+            var collector = new DB.FilteredElementCollector(_uidoc.Document)
                 .WhereElementIsNotElementType()
-                .OfClass(typeof(Wall))
+                .OfClass(typeof(DB.Wall))
                 .Take(3);
             foreach (var el in collector)
             {

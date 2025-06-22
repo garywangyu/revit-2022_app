@@ -88,7 +88,7 @@ namespace RevitPlugin
                     _orderList.Items.RemoveAt(i);
             };
 
-            var startButton = new Button { Text = "進行接合", Top = 200, Left = 200, Width = 80 };
+            var startButton = new Button { Text = "進行接合", Top = 200, Left = 200, Width = 100 };
             startButton.Click += StartJoin;
 
             var cancelButton = new Button { Text = "取消接合", Top = 200, Left = 290, Width = 80 };

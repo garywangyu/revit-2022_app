@@ -20,6 +20,7 @@ namespace RevitPlugin
             catch { }
 
             DynamoManager manager = DynamoManager.Instance;
+            ButtonImageManager imgManager = ButtonImageManager.Instance;
 
             for (int i = 1; i <= 5; i++)
             {
@@ -33,6 +34,16 @@ namespace RevitPlugin
                         label = "建築接合";
                     var data = new PushButtonData($"PB{i}_{j}", label, Assembly.GetExecutingAssembly().Location, $"RevitPlugin.Commands.Command{i}_{j}");
                     PushButton pb = pulldown.AddPushButton(data);
+                    if (i == 1)
+                    {
+                        var path = imgManager.GetPath($"1_{j}");
+                        if (!string.IsNullOrEmpty(path))
+                        {
+                            var img = ImageUtil.LoadImage(path);
+                            if (img != null)
+                                pb.LargeImage = img;
+                        }
+                    }
                     if (i == 2)
                     {
                         var item = manager.GetItem($"2_{j}");
@@ -43,6 +54,11 @@ namespace RevitPlugin
                                 pb.LargeImage = img;
                         }
                     }
+                }
+                if (i == 1)
+                {
+                    var manageData = new PushButtonData("PB1_manage", "管理", Assembly.GetExecutingAssembly().Location, "RevitPlugin.Commands.Command1_Manage");
+                    pulldown.AddPushButton(manageData);
                 }
                 if (i == 2)
                 {

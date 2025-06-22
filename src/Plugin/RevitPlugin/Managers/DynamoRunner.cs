@@ -24,7 +24,7 @@ namespace RevitPlugin.Managers
             }
             if (!File.Exists(exe))
             {
-                MessageBox.Show("找不到 Dynamo 執行檔", "錯誤");
+                MessageBox.Show("找不到Dynamo執行檔案", "錯誤");
                 return;
             }
 

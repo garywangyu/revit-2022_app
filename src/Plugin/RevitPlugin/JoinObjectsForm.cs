@@ -168,14 +168,19 @@ namespace RevitPlugin
 
         private static DB.BuiltInCategory? GetCategory(string name)
         {
-            return name switch
+            switch (name)
             {
-                "柱" => DB.BuiltInCategory.OST_StructuralColumns,
-                "梁" => DB.BuiltInCategory.OST_StructuralFraming,
-                "牆" => DB.BuiltInCategory.OST_Walls,
-                "板" => DB.BuiltInCategory.OST_Floors,
-                _ => null
-            };
+                case "柱":
+                    return DB.BuiltInCategory.OST_StructuralColumns;
+                case "梁":
+                    return DB.BuiltInCategory.OST_StructuralFraming;
+                case "牆":
+                    return DB.BuiltInCategory.OST_Walls;
+                case "板":
+                    return DB.BuiltInCategory.OST_Floors;
+                default:
+                    return null;
+            }
         }
     }
 }

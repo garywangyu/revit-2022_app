@@ -8,7 +8,8 @@
 
 2. **取得程式碼**
    - 在 GitHub 頁面點選 `Code -> Download ZIP` 下載專案，並將壓縮檔解開。
-   - 解壓後的資料夾中可看到 `src/Plugin/RevitPlugin/RevitPlugin.csproj` 檔案。
+   - 解壓後會得到一個資料夾，內含 `src/Plugin/RevitPlugin` 目錄及其他檔案。
+   - 您可以將此資料夾放在任意位置（例如 `C:\RevitPlugin`），稍後的步驟會以此路徑為例。
 
 3. **設定 API 路徑**
    - 於 Windows 搜尋列輸入「環境變數」，開啟「編輯系統環境變數」。
@@ -22,8 +23,17 @@
      完成後在 `bin\Debug` 目錄會產生 `RevitPlugin.dll`。
 
 5. **安裝外掛**
-   - 將 `bin\Debug` 內的 `RevitPlugin.dll` 與 `RevitPlugin.addin` 複製到
-     `C:\ProgramData\Autodesk\Revit\Addins\2022` 目錄。若此目錄不存在可自行建立。
+   - 編譯完成後，打開專案資料夾中的 `src\Plugin\RevitPlugin\bin\Debug`，
+     在此可找到 `RevitPlugin.dll`。
+   - `RevitPlugin.addin` 位於 `src\Plugin\RevitPlugin\AddIn` 目錄。
+   - 複製以上兩個檔案到 `C:\ProgramData\Autodesk\Revit\Addins\2022`。
+    若此目錄不存在可自行建立。
+
+## 檔案放置對照表
+| 檔案 | 產生位置 | 要複製到 |
+| --- | --- | --- |
+| `RevitPlugin.dll` | `src\\Plugin\\RevitPlugin\\bin\\Debug` | `C:\\ProgramData\\Autodesk\\Revit\\Addins\\2022` |
+| `RevitPlugin.addin` | `src\\Plugin\\RevitPlugin\\AddIn` | `C:\\ProgramData\\Autodesk\\Revit\\Addins\\2022` |
 
 6. **驗證安裝**
    - 啟動 Revit 2022，應可在功能區看到 **MyPluginTab**。點擊任一按鈕出現「待製作中」對話框，即代表安裝成功。

@@ -20,33 +20,36 @@
 4. **編譯專案**
    - 開啟 Visual Studio，選擇「開啟專案」，並瀏覽到 `RevitPlugin.csproj` 所在位置後開啟。
   - 在 Visual Studio 上方選單點擊「建置 > 建置方案」（或直接按 **F6**）。
-    完成後在 `bin\Debug` 目錄會產生 `RevitPlugin.dll`。此檔案並未隨專案附
+    完成後在 `bin\Debug\net48` 目錄會產生 `RevitPlugin.dll`。此檔案並未隨專案附
     帶，必須先透過此步驟自行編譯才能取得。
 
 5. **安裝外掛**
-   - 編譯完成後，打開專案資料夾中的 `src\Plugin\RevitPlugin\bin\Debug`，
+   - 編譯完成後，打開專案資料夾中的 `src\Plugin\RevitPlugin\bin\Debug\net48`，
      在此可找到 `RevitPlugin.dll`。
    - `RevitPlugin.addin` 位於 `src\Plugin\RevitPlugin\AddIn` 目錄。
-   - 複製以上兩個檔案到 `C:\ProgramData\Autodesk\Revit\Addins\2022`。
+   - **僅需這兩個檔案**，請勿將整個專案資料夾複製到 Addins 位置。
+   - 將上述兩檔一併複製至 `C:\ProgramData\Autodesk\Revit\Addins\2022`，
+     確保 `.addin` 與 `.dll` 位於同一資料夾中。
      此路徑位在 **ProgramData** 內，與 Revit 安裝資料夾 (`C:\Program Files\Autodesk`) 不同。
      預設情況下不會有 `RevitPlugin` 子資料夾，請自行建立。
    - 若整個 `Addins\2022` 資料夾不存在，也請手動建立。
+   - 專案根目錄下另有 `src/RevitPlugin/RevitPlugin.addin`，該檔僅供範例說明，請勿複製或使用。
 
    以下以解壓路徑 `C:\RevitPlugin` 為例，可使用命令提示字元執行下列複製指令：
    ```cmd
-   copy C:\RevitPlugin\src\Plugin\RevitPlugin\bin\Debug\RevitPlugin.dll C:\ProgramData\Autodesk\Revit\Addins\2022
+   copy C:\RevitPlugin\src\Plugin\RevitPlugin\bin\Debug\net48\RevitPlugin.dll C:\ProgramData\Autodesk\Revit\Addins\2022
    copy C:\RevitPlugin\src\Plugin\RevitPlugin\AddIn\RevitPlugin.addin C:\ProgramData\Autodesk\Revit\Addins\2022
    ```
    若您已在命令提示字元中將工作目錄切換到專案根目錄，也可以使用相對路徑：
    ```cmd
-   copy .\src\Plugin\RevitPlugin\bin\Debug\RevitPlugin.dll %ProgramData%\Autodesk\Revit\Addins\2022
+   copy .\src\Plugin\RevitPlugin\bin\Debug\net48\RevitPlugin.dll %ProgramData%\Autodesk\Revit\Addins\2022
    copy .\src\Plugin\RevitPlugin\AddIn\RevitPlugin.addin %ProgramData%\Autodesk\Revit\Addins\2022
    ```
 
 ## 檔案放置對照表
 | 檔案 | 產生位置 | 要複製到 |
 | --- | --- | --- |
-| `RevitPlugin.dll` | `src\\Plugin\\RevitPlugin\\bin\\Debug` | `C:\\ProgramData\\Autodesk\\Revit\\Addins\\2022` |
+| `RevitPlugin.dll` | `src\\Plugin\\RevitPlugin\\bin\\Debug\\net48` | `C:\\ProgramData\\Autodesk\\Revit\\Addins\\2022` |
 | `RevitPlugin.addin` | `src\\Plugin\\RevitPlugin\\AddIn` | `C:\\ProgramData\\Autodesk\\Revit\\Addins\\2022` |
 
 6. **驗證安裝**

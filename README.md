@@ -38,9 +38,10 @@
 - 之後可依需求在 `Commands.cs` 中替換各選項的實際功能，並可在建立按鈕時指定圖示。
 
 ## 專案結構
-- `src/Plugin/RevitPlugin/`：主要外掛程式碼與 .addin 檔案。
+- `src/Plugin/RevitPlugin/`：目前主要的外掛程式碼與 .addin 檔案。
 - `Application.cs`：實作 `IExternalApplication`，負責在啟動時建立功能區與按鈕。
 - `Commands/`：存放各按鈕及選項的指令程式碼，目前皆僅顯示待製作視窗。
+- `src/RevitPlugin/`：早期的簡化範例，所有指令集中在單一檔案並示範 WPF 視窗用法，不會由批次檔編譯，可作為參考。
 
 ## 便利批次檔
 對於不熟悉指令列操作的使用者，`scripts` 目錄提供兩個批次檔：

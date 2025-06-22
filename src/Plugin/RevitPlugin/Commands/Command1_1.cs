@@ -2,6 +2,7 @@ using Autodesk.Revit.UI;
 using Autodesk.Revit.Attributes;
 using System.Windows.Forms;
 using Autodesk.Revit.DB;
+using RevitPlugin;
 
 namespace RevitPlugin.Commands
 {
@@ -10,7 +11,8 @@ namespace RevitPlugin.Commands
     {
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            MessageBox.Show("1_1 待製作中", "Command 1_1");
+            var form = new JoinObjectsForm(commandData.Application.ActiveUIDocument);
+            form.ShowDialog();
             return Result.Succeeded;
         }
     }

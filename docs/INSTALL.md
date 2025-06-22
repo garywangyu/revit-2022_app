@@ -53,7 +53,7 @@
 | `RevitPlugin.addin` | `src\\Plugin\\RevitPlugin\\AddIn` | `C:\\ProgramData\\Autodesk\\Revit\\Addins\\2022` |
 
 6. **驗證安裝**
-   - 啟動 Revit 2022，應可在功能區看到 **MyPluginTab**。點擊任一按鈕出現「待製作中」對話框，即代表安裝成功。
+   - 啟動 Revit 2022，應可在功能區看到 **立立製作**。點擊任一按鈕出現「待製作中」對話框，即代表安裝成功。
 
 ## 批次檔快速操作
 若已安裝好相依軟體，也可使用 `scripts` 目錄下的批次檔簡化流程：
